@@ -1,0 +1,307 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API Flask - Gestion Utilisateurs et Articles",
+    "description": "Documentation de l'API pour gérer les utilisateurs et les articles",
+    "version": "1.1.0"
+  },
+  "basePath": "/api",
+  "paths": {
+    "/register": {
+      "post": {
+        "summary": "Inscrire un nouvel utilisateur",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Détails de l'utilisateur pour l'inscription",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": { "type": "string" },
+                "email": { "type": "string" },
+                "password": { "type": "string" },
+                "role": { 
+                  "type": "string",
+                  "enum": ["user", "admin"],
+                  "description": "Rôle de l'utilisateur (par défaut 'user')"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Utilisateur inscrit avec succès"
+          },
+          "400": {
+            "description": "Erreur dans les données fournies"
+          }
+        }
+      }
+    },
+    "/users": {
+      "post": {
+        "summary": "Créer un nouvel utilisateur",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Détails de l'utilisateur",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": { "type": "string" },
+                "email": { "type": "string" },
+                "password": { "type": "string" },
+                "role": { 
+                  "type": "string",
+                  "enum": ["user", "admin"],
+                  "description": "Rôle de l'utilisateur (par défaut 'user')"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Utilisateur créé avec succès"
+          },
+          "400": {
+            "description": "Erreur dans les données fournies"
+          }
+        }
+      },
+      "get": {
+        "summary": "Obtenir tous les utilisateurs",
+        "responses": {
+          "200": {
+            "description": "Liste des utilisateurs"
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "summary": "Obtenir un utilisateur par ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID de l'utilisateur"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Utilisateur trouvé"
+          },
+          "404": {
+            "description": "Utilisateur non trouvé"
+          }
+        }
+      },
+      "put": {
+        "summary": "Mettre à jour un utilisateur",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID de l'utilisateur"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Nouveaux détails de l'utilisateur",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": { "type": "string" },
+                "email": { "type": "string" },
+                "role": { 
+                  "type": "string",
+                  "enum": ["user", "admin"],
+                  "description": "Rôle de l'utilisateur"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Utilisateur mis à jour"
+          },
+          "404": {
+            "description": "Utilisateur non trouvé"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Supprimer un utilisateur",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID de l'utilisateur"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Utilisateur supprimé avec succès"
+          },
+          "404": {
+            "description": "Utilisateur non trouvé"
+          }
+        }
+      }
+    },
+    "/posts": {
+      "get": {
+        "summary": "Obtenir tous les articles",
+        "responses": {
+          "200": {
+            "description": "Liste des articles"
+          }
+        }
+      },
+      "post": {
+        "summary": "Créer un nouvel article",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Détails de l'article",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": { "type": "string" },
+                "body": { "type": "string" },
+                "user_id": { "type": "integer" }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Article créé avec succès"
+          },
+          "400": {
+            "description": "Erreur dans les données fournies"
+          }
+        }
+      }
+    },
+    "/posts/{id}": {
+      "get": {
+        "summary": "Obtenir un article par ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID de l'article"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Article trouvé"
+          },
+          "404": {
+            "description": "Article non trouvé"
+          }
+        }
+      },
+      "put": {
+        "summary": "Mettre à jour un article",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID de l'article"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Nouveaux détails de l'article",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": { "type": "string" },
+                "body": { "type": "string" }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Article mis à jour"
+          },
+          "404": {
+            "description": "Article non trouvé"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Supprimer un article",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID de l'article"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Article supprimé avec succès"
+          },
+          "404": {
+            "description": "Article non trouvé"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "summary": "Authentifier un utilisateur et générer un token",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Identifiants de connexion",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": { "type": "string" },
+                "password": { "type": "string" }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Token généré avec succès"
+          },
+          "401": {
+            "description": "Authentification échouée"
+          }
+        }
+      }
+    }
+  }
+}
